@@ -45,23 +45,7 @@ class MainViewModel @Inject constructor(
         getMovies(FetchType.POPULAR)
     }
 
-    fun popularMovie() {
-        getMovies(FetchType.POPULAR)
-    }
-
-    fun topRatedMovie() {
-        getMovies(FetchType.TOP_RATED)
-    }
-
-    fun nowPlayingMovie() {
-        getMovies(FetchType.NOW_PLAYING)
-    }
-
-    fun upComingMovie() {
-        getMovies(FetchType.UP_COMING)
-    }
-
-    private fun getMovies(fetchType: FetchType) {
+    fun getMovies(fetchType: FetchType) {
         _uiState.tryEmit(MainScreenUiState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             val upComingMovies = when (fetchType) {

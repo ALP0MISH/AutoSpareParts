@@ -56,7 +56,11 @@ android {
 kapt {
     correctErrorTypes = true
 }
+
 dependencies {
+    implementation("androidx.compose.foundation:foundation:1.4.0-rc01")
+
+
     implementation("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-rc01")

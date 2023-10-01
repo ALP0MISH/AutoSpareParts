@@ -2,7 +2,6 @@ package com.example.autospareparts.presentation.screens.main
 
 import BottomNavigationBar
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,8 +17,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -49,7 +46,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,10 +56,10 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.example.autospareparts.R
 import com.example.autospareparts.data.remote.POSTER_PATH_URL
+import com.example.autospareparts.presentation.components.LazyRowMovies
 import com.example.autospareparts.presentation.models.MovieUi
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import kotlinx.coroutines.flow.StateFlow
@@ -186,10 +182,13 @@ private fun LoadedMainScreen(
         val movieImageUrls = movies.map { movie -> POSTER_PATH_URL + movie.backdropPath }
         HorizontalPagerWithIndicators(images = movieImageUrls)
         Spacer(modifier = Modifier.padding(top = 40.dp))
-        LazyRowComponent(
-            movies = movies
-        )
+//        LazyRowComponent(
+//            movies = movies
+//        )
     }
+//    LazyRowMovies(
+//        movies = movies
+//    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -225,32 +224,6 @@ fun HorizontalPagerWithIndicators(images: List<String>) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun LazyRowComponent(movies: List<MovieUi>) {
-    val imageState = rememberPagerState()
-    val itemList = List(5) { index -> "Item ${index + 1}" }
-
-    LazyRow {
-        val texts = listOf(
-            "Now Playing", "Upcoming", "Top Rated", "Popular"
-        )
-        items(texts) { text ->
-            Text(
-                text = text,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(18.dp),
-                color = if (isSystemInDarkTheme()) Color.White else Color.Black
-            )
-        }
-    }
-    LazyRow {
-        items(movies) { movie ->
-            Image(painter = rememberAsyncImagePainter(model = movie.posterPath), contentDescription = null)
-        }
-    }
-}
 
 @Composable
 fun ErrorMainScreen(

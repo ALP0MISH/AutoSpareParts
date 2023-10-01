@@ -60,7 +60,6 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun fetchUpComingMovie(): List<MovieDomain> {
         val movieResponse = movieService.fetchUpcomingMovie()
         val movieRemote = movieResponse.body()
-
         if (movieRemote?.results?.size == null) {
             MovieDomain.unknown
         } else {
