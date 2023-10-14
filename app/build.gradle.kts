@@ -58,8 +58,14 @@ kapt {
 }
 
 dependencies {
-    implementation("androidx.compose.foundation:foundation:1.4.0-rc01")
+    //additional Icons
+    implementation ("androidx.compose.material:material-icons-extended:1.4.3")
 
+    implementation ("com.google.accompanist:accompanist-pager:0.27.1")
+
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.27.1")
+
+    implementation("androidx.compose.foundation:foundation:1.4.0-rc01")
 
     implementation("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
@@ -77,13 +83,15 @@ dependencies {
 
     //Room
     val room_version = "2.5.2"
-//    ksp("androidx.room:room-compiler:$room_version")
-//    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    kapt ("androidx.room:room-ktx:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-runtime:$room_version")
 
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
-    //Hint
+    //Hilt
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 

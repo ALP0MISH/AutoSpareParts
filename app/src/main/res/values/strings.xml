@@ -5,4 +5,9 @@
     <string name="search">Search</string>
     <string name="we_are_sorry_we_can_not_find_the_movie">We Are Sorry, We Can\nNot Find The Movie :(</string>
     <string name="find_your_movie_by_type_title_categories_years_etc">"Find your movie by Type title,\n        categories, years, etc "</string>
+    <string name="watch_list">Watch list</string>
+    <string name="there_is_not_movie_yet">There is no movie yet!</string>
+    <string name="detail">Detail</string>
+    <string name="retry">Retry</string>
+    <string name="spiderman_no_way_home">Spiderman No Way\nHome</string>
 </resources>

@@ -5,18 +5,20 @@ import androidx.navigation.navArgument
 
 interface Destination {
     val route: String
-    val routeWithArgs: String
 }
 
-object MainScreen : Destination {
-    override val route: String = "main_screen"
-    override val routeWithArgs: String = route
+object MainRootScreenDestination : Destination {
+    override val route: String = "main_root_screen"
 }
 
-object SearchScreen : Destination {
-    val argumentTypeArg = "movieId"
+object SplashScreenDestination : Destination {
+    override val route: String = "splash_screen"
+}
 
-    override val route: String = "search_screen"
-    override val routeWithArgs: String = "$route/${argumentTypeArg}"
-    val arguments = listOf(navArgument(argumentTypeArg) { type = NavType.StringType })
+object  DetailsScreenDestination : Destination {
+     val movieId = "movieId"
+    override val route: String = "detail_screen"
+    val routeWithArgs = "$route/{$movieId}"
+    val arguments = listOf(navArgument(movieId) { type = NavType.IntType })
+
 }

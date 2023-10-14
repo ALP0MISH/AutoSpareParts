@@ -5,27 +5,27 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 
-sealed class BottomNavigationBar(
+sealed class BottomNavigationBarDestinations(
     val route: String,
     val title: String,
     val icon: ImageVector,
 
     ) {
-    object Main : BottomNavigationBar(
+    object Main : BottomNavigationBarDestinations(
         route = "main",
         title = "Home",
         icon = Icons.Default.Home
     )
 
-    object Search : BottomNavigationBar(
+    object Search : BottomNavigationBarDestinations(
         route = "search",
         title = "Search",
         icon = Icons.Default.Search
     )
 
-    object WatchList : BottomNavigationBar(
+    object WatchList : BottomNavigationBarDestinations(
         route = "watch_list",
-        title = "WatchList",
+        title = "Watch List",
         icon = Icons.Default.Star
     )
 }

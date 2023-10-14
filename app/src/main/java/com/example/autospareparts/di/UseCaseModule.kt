@@ -1,48 +1,33 @@
 package com.example.autospareparts.di
 
-import com.example.autospareparts.data.repository.MovieRepositoryImpl
-import com.example.autospareparts.domain.MovieRepository
-import com.example.autospareparts.domain.use_case.FetchAllPopularMovies
-import com.example.autospareparts.domain.use_case.FetchAllPopularMoviesImpl
-import com.example.autospareparts.domain.use_case.FetchNowPlayingMovieUseCase
-import com.example.autospareparts.domain.use_case.FetchNowPlayingMovieUseCaseImpl
-import com.example.autospareparts.domain.use_case.FetchTopRatedMovieUseCase
-import com.example.autospareparts.domain.use_case.FetchTopRatedMovieUseCaseImpl
-import com.example.autospareparts.domain.use_case.FetchUpComingMovieUseCase
-import com.example.autospareparts.domain.use_case.FetchUpComingMovieUseCaseImpl
+import com.example.autospareparts.domain.use_case.FetchMovieByIdUseCase
+import com.example.autospareparts.domain.use_case.FetchMovieByIdUseCaseImpl
+import com.example.autospareparts.domain.use_case.FetchMoviesInteractor
+import com.example.autospareparts.domain.use_case.FetchMoviesInteractorImpl
+import com.example.autospareparts.domain.use_case.SearchMoviesByQueryUseCase
+import com.example.autospareparts.domain.use_case.SearchMoviesByQueryUseCaseImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class UseCaseModule {
-    @Provides
-    fun provideFetchUseCase(
-        repository: MovieRepository
-    ):FetchAllPopularMovies = FetchAllPopularMoviesImpl(
-        repository = repository
-    )
+interface UseCaseModule {
+    @Binds
+    fun bindFetchMoviesInteractor(
+        implement: FetchMoviesInteractorImpl
+    ): FetchMoviesInteractor
 
-    @Provides
-    fun provideFetchTopRatedUseCase(
-        repository: MovieRepository
-    ): FetchTopRatedMovieUseCase = FetchTopRatedMovieUseCaseImpl(
-        repository = repository
-    )
 
-    @Provides
-    fun provideFetchNowPlayingUseCase(
-        repository: MovieRepository
-    ): FetchNowPlayingMovieUseCase = FetchNowPlayingMovieUseCaseImpl(
-        repository = repository
-    )
+    @Binds
+    fun bindSearchMoviesByQueryUseCase(
+        implement: SearchMoviesByQueryUseCaseImpl
+    ): SearchMoviesByQueryUseCase
 
-    @Provides
-    fun provideFetchUpComingUseCase(
-        repository: MovieRepository
-    ): FetchUpComingMovieUseCase = FetchUpComingMovieUseCaseImpl(
-        repository = repository
-    )
+    @Binds
+    fun bindFetchMovieByIdUseCase(
+        implement: FetchMovieByIdUseCaseImpl
+    ): FetchMovieByIdUseCase
+
 }

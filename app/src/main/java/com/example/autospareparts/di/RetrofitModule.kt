@@ -1,31 +1,39 @@
 package com.example.autospareparts.di
 
-import com.example.autospareparts.data.remote.MovieService
+import com.example.autospareparts.data.cloude.MovieService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+private  val API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTBjMTU5NWQxMDg5MWMzYTI0MGQ0MGQ1NzFjMWFjYiIsInN1YiI6IjY0ZjFkMzBkNWYyYjhkMDExYjRkNGU5MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0RRqtA53mLHoTEoruckVumFZccd8_gWl4gsaZ5mjZDM"
+private const val BASE_URL = "https://api.themoviedb.org"
 
 @Module
 @InstallIn(SingletonComponent::class)
 class RetrofitModule {
     @Provides
     fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org")
+        return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(
-                OkHttpClient
-                    .Builder()
+                OkHttpClient.Builder()
                     .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                    .build()
-
+                    .addInterceptor(Interceptor { chain ->
+                        val request = chain.request()
+                            .newBuilder()
+                            .addHeader("Authorization", "Bearer $API_KEY")
+                            .build()
+                        return@Interceptor chain.proceed(request = request)
+                    }).build()
             ).build()
     }
+
     @Provides
     fun provideMovieService(retrofit: Retrofit): MovieService =
         retrofit.create(MovieService::class.java)
