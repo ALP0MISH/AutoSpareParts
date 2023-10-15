@@ -19,6 +19,11 @@ val SF_PRO_TEXT = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
+    displaySmall = TextStyle(
+        fontFamily = SF_PRO_TEXT,
+        fontWeight = FontWeight.Normal,
+        fontSize = 8.sp,
+    ),
     bodyLarge = TextStyle(
         fontFamily = SF_PRO_TEXT,
         fontWeight = FontWeight.Normal,

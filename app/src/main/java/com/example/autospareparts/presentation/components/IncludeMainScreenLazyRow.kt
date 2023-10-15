@@ -189,47 +189,45 @@ fun Item(
         CustomIndicator(tabPositions, pagerState)
     }
     Column {
-        ScrollableTabRow(selectedTabIndex = minOf(header.count(), pagerPage.value),
-            backgroundColor = Background,
-            indicator = defaultIndicator,
-            divider = {
-                Spacer(modifier = Modifier.height(5.dp))
-            }) {
-            moviesList.forEachIndexed { index, header ->
-                Tab(modifier = Modifier.zIndex(4f), text = {
-                    Text(
-                        text = header.toString(),
-                        style = MaterialTheme.typography.body1.copy(color = Color.White)
-                    )
-                }, selected = pagerState.currentPage == index, onClick = {
-                    coroutineScope.launch {
-                        pagerState.animateScrollToPage(index)
-                        header
-                    }
-                })
-            }
-        }
-        HorizontalPager(
-            pageCount = moviesList.size, state = pagerState
-        ) { position ->
-            val currentMovies = moviesList[position]
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(count = 3),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                items(items = currentMovies) { movieDomain ->
-                    posterPathInclude(
-                        movies = movieDomain, navigateToDetailsScreen = navigateToDetailsScreen
-                    )
+        moviesList.forEachIndexed { index, header ->
+            Tab(modifier = Modifier.zIndex(4f), text = {
+                Text(
+                    text = header.toString(),
+                    style = MaterialTheme.typography.body1.copy(color = Color.White)
+                )
+            }, selected = pagerState.currentPage == index, onClick = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(index)
+                    header
                 }
             }
+            )
+        }
+    }
+    HorizontalPager(
+        pageCount = moviesList.size,
+        state = pagerState,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(all = 12.dp)
+    ) { position ->
+        val currentMovies = moviesList[position]
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(count = 3),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            items(items = currentMovies) { movieDomain ->
+                posterPathInclude(
+                    movies = movieDomain,
+                    navigateToDetailsScreen = navigateToDetailsScreen
+                )
+            }
+        }
 //                items(items = currentMovies.map { it.posterPath },
 //                    {  MovieItemList(
 //                            movies = key,
 //                            navigateToDetailsScreen = navigateToDetailsScreen)
 //                    }
 //                )
-        }
     }
 }
-

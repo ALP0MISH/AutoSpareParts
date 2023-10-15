@@ -1,6 +1,5 @@
 package com.example.autospareparts.presentation.screens.main
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,26 +26,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.autospareparts.R
 import com.example.autospareparts.presentation.components.HorizontalPagerWithIndicators
-import com.example.autospareparts.presentation.components.IncludeItem
 import com.example.autospareparts.presentation.components.Item
 import com.example.autospareparts.presentation.components.SearchTextField
 import com.example.autospareparts.presentation.theme.Background
 import kotlinx.coroutines.flow.StateFlow
 
-//@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-//@Preview
-//@Composable
-//fun MainScreenPreview() {
-//    val viewModel: MainViewModel = hiltViewModel()
-//    MaterialTheme {
-//        MainScreen(
-//            navigateToSearchScreen = {},
-//            onChangeType = viewModel::getMovies,
-//            uiStateFlow = viewModel.uiState,
-//            navigateToDetailsScreen = navi
-//        )
-//    }
-//}
 
 @Composable
 fun MainScreen(
@@ -127,7 +111,7 @@ private fun LoadedMainScreen(
 
         HorizontalPagerWithIndicators(movies = uiState.popularMovies, navigateToDetailsScreen = navigateToDetailsScreen)
         Spacer(modifier = Modifier.height(10.dp))
-        Item(uiState = uiState,navigateToDetailsScreen = navigateToDetailsScreen)
+       // Item(uiState = uiState,navigateToDetailsScreen = navigateToDetailsScreen)
     }
 }
 

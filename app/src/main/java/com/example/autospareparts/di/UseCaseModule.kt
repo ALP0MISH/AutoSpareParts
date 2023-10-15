@@ -4,6 +4,10 @@ import com.example.autospareparts.domain.use_case.FetchMovieByIdUseCase
 import com.example.autospareparts.domain.use_case.FetchMovieByIdUseCaseImpl
 import com.example.autospareparts.domain.use_case.FetchMoviesInteractor
 import com.example.autospareparts.domain.use_case.FetchMoviesInteractorImpl
+import com.example.autospareparts.domain.use_case.IsMovieSavedUseCaseIMpl
+import com.example.autospareparts.domain.use_case.IsMovieSavedUseCase
+import com.example.autospareparts.domain.use_case.MovieOperatorUseCase
+import com.example.autospareparts.domain.use_case.MovieOperatorUseCaseImpl
 import com.example.autospareparts.domain.use_case.SearchMoviesByQueryUseCase
 import com.example.autospareparts.domain.use_case.SearchMoviesByQueryUseCaseImpl
 import dagger.Binds
@@ -29,5 +33,17 @@ interface UseCaseModule {
     fun bindFetchMovieByIdUseCase(
         implement: FetchMovieByIdUseCaseImpl
     ): FetchMovieByIdUseCase
+
+    @Binds
+    fun bindIsMovieSavedUseCase(
+        implement: IsMovieSavedUseCaseIMpl
+    ): IsMovieSavedUseCase
+
+    @Binds
+    fun bindMovieOperatorUseCase(
+        implement: MovieOperatorUseCaseImpl
+    ): MovieOperatorUseCase
+
+
 
 }

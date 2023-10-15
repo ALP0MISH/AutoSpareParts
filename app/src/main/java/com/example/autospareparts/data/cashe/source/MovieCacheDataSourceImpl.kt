@@ -2,6 +2,7 @@ package com.example.autospareparts.data.cashe.source
 
 import com.example.autospareparts.data.cashe.dao.MovieDao
 import com.example.autospareparts.data.cashe.models.MovieDetailCache
+import kotlinx.coroutines.flow.Flow
 
 class MovieCacheDataSourceImpl(
     private val movieDao: MovieDao
@@ -10,11 +11,15 @@ class MovieCacheDataSourceImpl(
         movieDao.addNewMovie(movie)
     }
 
-    override suspend fun deleteMovieById(movieId: String) {
+    override suspend fun deleteMovieById(movieId: Int) {
         movieDao.deleteMovieById(movieId)
     }
 
     override suspend fun fetchSavedMovies(): List<MovieDetailCache> {
        return movieDao.fetchSavedMovies()
+    }
+
+     override fun isMovieSavedFloe(movieId: Int): Flow<Boolean> {
+        return movieDao.isMovieSave(movieId)
     }
 }

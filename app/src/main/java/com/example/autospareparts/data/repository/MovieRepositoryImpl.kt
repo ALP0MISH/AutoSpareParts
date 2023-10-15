@@ -12,6 +12,7 @@ import com.example.autospareparts.domain.models.MovieDetailDomain
 import com.example.autospareparts.domain.models.MovieDomain
 import com.example.autospareparts.presentation.mappers.toCache
 import com.example.autospareparts.presentation.mappers.toDomain
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
@@ -19,11 +20,12 @@ class MovieRepositoryImpl @Inject constructor(
     private val cacheDataSource: MovieCacheDataSource
 ) :
     MovieRepository {
+
     override suspend fun addNewMovie(movie: MovieDetailDomain) {
         cacheDataSource.addNewMovie(movie = movie.toCache())
     }
 
-    override suspend fun deleteMovieById(movieId: String) {
+    override suspend fun deleteMovieById(movieId: Int) {
         cacheDataSource.deleteMovieById(movieId)
     }
 
@@ -32,7 +34,7 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun fetchPopularMovie(): List<MovieDomain> {
-       return cloudDataSource.fetchPopularMovie().map { it.toDomain() }
+        return cloudDataSource.fetchPopularMovie().map { it.toDomain() }
     }
 
     override suspend fun fetchTopRatedMovie(): List<MovieDomain> {
@@ -55,4 +57,7 @@ class MovieRepositoryImpl @Inject constructor(
         return cloudDataSource.fetchMovieById(movieId)?.toDomain()
     }
 
+    override fun isMovieSavedFlow(movieId: Int): Flow<Boolean> {
+        return cacheDataSource.isMovieSavedFloe(movieId)
+    }
 }

@@ -6,7 +6,8 @@ import com.example.autospareparts.presentation.models.MovieUi
 sealed class DetailScreenUiState {
     object Loading : DetailScreenUiState()
     data class Loaded(
-        val movies: MovieDetailDomain
+        val movies: MovieDetailDomain,
+        val isSaved: Boolean = false
     ) : DetailScreenUiState()
 
     data class Error(

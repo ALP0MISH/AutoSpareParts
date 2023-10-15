@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.autospareparts.presentation.screens.details_screen.DetailsScreen
-import com.example.autospareparts.presentation.screens.details_screen.DetailsScreenViewModel
+import com.example.autospareparts.presentation.screens.details_screen.DetailsViewModel
 import com.example.autospareparts.presentation.screens.watch_list_screen.WatchListScreen
 import com.example.autospareparts.presentation.screens.main.MainScreen
 import com.example.autospareparts.presentation.screens.main.MainViewModel
@@ -50,11 +50,13 @@ fun BottomNavGraph(
             val movieId = navBackStackEntry.arguments
                 ?.getInt(DetailsScreenDestination.movieId)
                 ?: 0
-            val detailViewModel: DetailsScreenViewModel = hiltViewModel()
+            val detailViewModel: DetailsViewModel = hiltViewModel()
 
             DetailsScreen(
                 uiStateFlow = detailViewModel.uiStateFlow,
-                fetchMovies ={ detailViewModel.fetchMovieByID(movieId)})
+                fetchMovies ={ detailViewModel.fetchMovieByID(movieId)},
+                addOrDelete = { detailViewModel.addOrDeleteMovie(movieId) }
+            )
         }
     }
 }

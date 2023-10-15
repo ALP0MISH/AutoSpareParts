@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.autospareparts.presentation.destinations.AppNavGraph
+import com.example.autospareparts.presentation.screens.details_screen.components.DetailTabBar
 import com.example.autospareparts.presentation.screens.main.MainViewModel
 import com.example.autospareparts.presentation.theme.AutoSparePartsTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,11 +31,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                   // Test()
-                    //  TabBar()
-                         MovieNavApp()
-                    //  DetailsScreen()
-                    //  SearchScreen()
+                   // DetailTabBar()
+                    MovieNavApp()
                 }
             }
         }
