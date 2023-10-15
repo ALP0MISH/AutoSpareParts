@@ -50,9 +50,8 @@ class MovieCloudDataSourceImpl(
             if (movieResponse.isSuccessful) {
                 movieResponse.body()?.results ?: emptyList()
             } else { emptyList()}
-        } catch (e: Throwable)
-        { emptyList() }
-        Log.i("Abdurahman","Total: ${fetchPopularMovie().size}")
+        } catch (e: Throwable) {
+            emptyList() }
     }
 
     override suspend fun fetchMovieById(movieId: Int): DetailResult? {

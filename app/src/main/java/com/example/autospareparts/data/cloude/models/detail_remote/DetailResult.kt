@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DetailResult(
     @SerializedName("adult") val adult: Boolean,
-    @SerializedName("backdrop_path") val backdropPath: String,
+    @SerializedName("backdrop_path") val backdropPath: String?,
     @SerializedName("budget") val budget: Int,
     @SerializedName("genres") val movieGenres: List<MovieGenre>,
     @SerializedName("homepage") val homepage: String,

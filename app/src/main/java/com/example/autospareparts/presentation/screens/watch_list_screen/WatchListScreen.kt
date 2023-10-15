@@ -1,9 +1,7 @@
 package com.example.autospareparts.presentation.screens.watch_list_screen
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,22 +24,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
 import com.example.autospareparts.R
-import com.example.autospareparts.presentation.screens.details_screen.DetailScreenUiState
+import com.example.autospareparts.domain.models.MovieDomain
 import com.example.autospareparts.presentation.screens.details_screen.ErrorScreen
-import com.example.autospareparts.presentation.screens.details_screen.LoadedScreen
 import com.example.autospareparts.presentation.screens.details_screen.LoadingScreen
-import com.example.autospareparts.presentation.screens.watch_list_screen.component.IsVisiblyWatchListItem
+import com.example.autospareparts.presentation.screens.watch_list_screen.component.WatchListIncludeItem
 import com.example.autospareparts.presentation.theme.Background
 import kotlinx.coroutines.flow.StateFlow
 
@@ -49,7 +41,7 @@ import kotlinx.coroutines.flow.StateFlow
 @Composable
 fun WatchListScreen(
     modifier: Modifier = Modifier,
-    fetchMovies: () -> Unit,
+    // fetchMovies: () -> Unit,
     uiStateFlow: StateFlow<WatchListUIState>
 ) {
     val fullScreenModifier = Modifier
@@ -62,13 +54,14 @@ fun WatchListScreen(
         is WatchListUIState.Loaded -> {
             LoadedScreen(
                 modifier = fullScreenModifier,
+                //  movie = uiState.searchMovie
             )
         }
 
         is WatchListUIState.Error -> {
             ErrorScreen(
                 errorMessage = uiState.message,
-                fetchMovies = fetchMovies
+                // fetchMovies = fetchMovies
             )
         }
     }
@@ -91,7 +84,7 @@ fun LoadingScreen(
 @Composable
 fun ErrorScreen(
     errorMessage: String,
-    fetchMovies: () -> Unit,
+    //  fetchMovies: () -> Unit,
     modifier: Modifier = Modifier
         .background(Background)
         .fillMaxSize()
@@ -105,7 +98,7 @@ fun ErrorScreen(
             style = MaterialTheme.typography.titleLarge,
         )
         Spacer(modifier = Modifier.height(24.dp))
-        Button(onClick = fetchMovies) {
+        Button(onClick = {}) {
             androidx.compose.material3.Text(
                 text = stringResource(id = R.string.retry),
                 style = MaterialTheme.typography.titleLarge,
@@ -117,7 +110,8 @@ fun ErrorScreen(
 
 @Composable
 fun LoadedScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    // movie: MovieDomain,
 ) {
     val fullScreenModifier = Modifier
         .background(Background)
@@ -154,8 +148,8 @@ fun LoadedScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(215.dp))
-            IsVisiblyWatchListItem(modifier = Modifier.padding(start = 94.dp))
+            //      WatchListIncludeItem(watchMovie = movie)
+            //  IsVisiblyWatchListItem(modifier = Modifier.padding(start = 94.dp))
         }
     }
 }
-

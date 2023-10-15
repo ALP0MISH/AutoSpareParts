@@ -1,17 +1,12 @@
 package com.example.autospareparts.data.repository
 
-import android.util.Log
-import com.example.autospareparts.data.cashe.models.MovieDetailCache
 import com.example.autospareparts.data.cashe.source.MovieCacheDataSource
-import com.example.autospareparts.data.cloude.models.all_movies_remote.MovieResult
-import com.example.autospareparts.data.cloude.models.detail_remote.DetailResult
-import com.example.autospareparts.data.cloude.MovieService
 import com.example.autospareparts.data.cloude.source.MovieCloudDataSource
 import com.example.autospareparts.domain.MovieRepository
 import com.example.autospareparts.domain.models.MovieDetailDomain
 import com.example.autospareparts.domain.models.MovieDomain
 import com.example.autospareparts.presentation.mappers.toCache
-import com.example.autospareparts.presentation.mappers.toDomain
+import com.example.autospareparts.presentation.mappers.toUi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -30,31 +25,31 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun fetchSavedMovies(): List<MovieDetailDomain> {
-        return cacheDataSource.fetchSavedMovies().map { it.toDomain() }
+        return cacheDataSource.fetchSavedMovies().map { it.toUi() }
     }
 
     override suspend fun fetchPopularMovie(): List<MovieDomain> {
-        return cloudDataSource.fetchPopularMovie().map { it.toDomain() }
+        return cloudDataSource.fetchPopularMovie().map { it.toUi() }
     }
 
     override suspend fun fetchTopRatedMovie(): List<MovieDomain> {
-        return cloudDataSource.fetchTopRatedMovie().map { it.toDomain() }
+        return cloudDataSource.fetchTopRatedMovie().map { it.toUi() }
     }
 
     override suspend fun fetchUpcomingMovie(): List<MovieDomain> {
-        return cloudDataSource.fetchUpcomingMovie().map { it.toDomain() }
+        return cloudDataSource.fetchUpcomingMovie().map { it.toUi() }
     }
 
     override suspend fun fetchNowPlayingMovie(): List<MovieDomain> {
-        return cloudDataSource.fetchNowPlayingMovie().map { it.toDomain() }
+        return cloudDataSource.fetchNowPlayingMovie().map { it.toUi() }
     }
 
     override suspend fun fetchSearchMovie(query: String): List<MovieDomain> {
-        return cloudDataSource.fetchSearchMovie(query).map { it.toDomain() }
+        return cloudDataSource.fetchSearchMovie(query).map { it.toUi() }
     }
 
     override suspend fun fetchMovieById(movieId: Int): MovieDetailDomain? {
-        return cloudDataSource.fetchMovieById(movieId)?.toDomain()
+        return cloudDataSource.fetchMovieById(movieId)?.toUi()
     }
 
     override fun isMovieSavedFlow(movieId: Int): Flow<Boolean> {

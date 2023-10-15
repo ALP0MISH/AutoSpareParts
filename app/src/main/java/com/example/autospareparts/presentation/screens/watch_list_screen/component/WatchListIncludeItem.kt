@@ -3,7 +3,6 @@ package com.example.autospareparts.presentation.screens.watch_list_screen.compon
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.DateRange
@@ -14,12 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.autospareparts.domain.models.MovieDomain
-import com.example.autospareparts.presentation.screens.details_screen.DetailScreenUiState
-import com.example.autospareparts.presentation.screens.watch_list_screen.WatchListUIState
+import com.example.autospareparts.R
+import com.example.autospareparts.presentation.models.MovieUi
 
 //@Preview
 //@Composable
@@ -31,7 +29,7 @@ import com.example.autospareparts.presentation.screens.watch_list_screen.WatchLi
 
 @Composable
 fun WatchListIncludeItem(
-    watchMovie: MovieDomain,
+    watchMovie: MovieUi,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -43,6 +41,7 @@ fun WatchListIncludeItem(
             model = watchMovie.posterPath,
             contentScale = ContentScale.Crop,
             contentDescription = null,
+            placeholder = painterResource(id = R.drawable.dark_image_place_holder),
         )
         Column(
             modifier = Modifier
@@ -63,7 +62,6 @@ fun WatchListIncludeItem(
             ) {
                 Text(text = watchMovie.releaseDate)
                 Icon(Icons.Default.DateRange, contentDescription = null)
-
             }
         }
     }

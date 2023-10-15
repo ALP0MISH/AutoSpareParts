@@ -2,6 +2,7 @@ package com.example.autospareparts.presentation.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.autospareparts.R
 import com.example.autospareparts.presentation.components.HorizontalPagerWithIndicators
-import com.example.autospareparts.presentation.components.Item
+import com.example.autospareparts.presentation.components.IncludeMainBottom
 import com.example.autospareparts.presentation.components.SearchTextField
 import com.example.autospareparts.presentation.theme.Background
 import kotlinx.coroutines.flow.StateFlow
@@ -86,32 +89,57 @@ private fun LoadedMainScreen(
     navigateToDetailsScreen: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    val scrollState = rememberScrollState()
+
+    BoxWithConstraints(
         modifier = modifier
-            .padding(top = 24.dp)
+            .fillMaxSize()
+            .background(Background)
     ) {
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(id = R.string.what_do_you_want_to_watch),
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = Color.White,
-                fontSize = 20.sp,
-            ),
-            textAlign = TextAlign.Center
-        )
-        val (value, onValueChange) = remember { mutableStateOf("") }
-        Spacer(modifier = Modifier.height(24.dp))
+        val screenHeight = maxHeight
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(state = scrollState)
+        ) {
+            Column(
+                modifier = modifier
+                    .padding(top = 24.dp)
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = stringResource(id = R.string.what_do_you_want_to_watch),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = Color.White,
+                        fontSize = 20.sp,
+                    ),
+                    textAlign = TextAlign.Center
+                )
+                val (value, onValueChange) = remember { mutableStateOf("") }
+                Spacer(modifier = Modifier.height(24.dp))
 
-        SearchTextField(
-            value = value,
-            onValueChange = onValueChange,
-            navigateToSearchScreen = navigateToSearchScreen
-        )
-        Spacer(modifier = Modifier.height(20.dp))
+                SearchTextField(
+                    value = value,
+                    onValueChange = onValueChange,
+                    navigateToSearchScreen = navigateToSearchScreen
+                )
+                Spacer(modifier = Modifier.height(20.dp))
 
-        HorizontalPagerWithIndicators(movies = uiState.popularMovies, navigateToDetailsScreen = navigateToDetailsScreen)
-        Spacer(modifier = Modifier.height(10.dp))
-       // Item(uiState = uiState,navigateToDetailsScreen = navigateToDetailsScreen)
+                HorizontalPagerWithIndicators(
+                    movies = uiState.popularMovies,
+                    navigateToDetailsScreen = navigateToDetailsScreen
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+            Column(
+                modifier = Modifier.height(screenHeight),
+            ) {
+                IncludeMainBottom(
+                    uiState = uiState,
+                    navigateToDetailsScreen = navigateToDetailsScreen
+                )
+            }
+        }
     }
 }
 

@@ -4,6 +4,7 @@ import BottomNavigationBarDestinations
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,6 +14,8 @@ import com.example.autospareparts.presentation.screens.watch_list_screen.WatchLi
 import com.example.autospareparts.presentation.screens.main.MainScreen
 import com.example.autospareparts.presentation.screens.main.MainViewModel
 import com.example.autospareparts.presentation.screens.seach_screen.SearchScreen
+import com.example.autospareparts.presentation.screens.seach_screen.SearchViewModel
+import com.example.autospareparts.presentation.screens.watch_list_screen.WatchListViewModel
 
 @Composable
 fun BottomNavGraph(
@@ -38,10 +41,19 @@ fun BottomNavGraph(
             )
         }
         composable(route = BottomNavigationBarDestinations.Search.route) {
-            SearchScreen()
+            val viewModel: SearchViewModel = hiltViewModel()
+            SearchScreen(
+                onValueChange = viewModel::onValueChange,
+                uiState = viewModel.uiStateFlow.collectAsStateWithLifecycle().value
+            )
         }
         composable(route = BottomNavigationBarDestinations.WatchList.route) {
-            WatchListScreen()
+            val watchListViewModel: WatchListViewModel = hiltViewModel()
+
+            WatchListScreen(
+                uiStateFlow = watchListViewModel.uiStateFlow,
+
+            )
         }
         composable(
             route = DetailsScreenDestination.routeWithArgs,
