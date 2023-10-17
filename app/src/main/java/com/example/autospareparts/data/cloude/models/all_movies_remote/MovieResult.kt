@@ -17,5 +17,7 @@ data class MovieResult(
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("release_date")
-    val releaseDate: String
-) : Parcelable
+    val releaseDate: String,
+    @SerializedName("runtime")
+    val runtime: Int,
+    ) : Parcelable

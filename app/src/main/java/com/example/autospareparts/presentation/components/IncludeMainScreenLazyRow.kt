@@ -99,46 +99,6 @@ fun IncludeMainBottom(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-private fun CustomIndicator(tabPositions: List<TabPosition>, pagerState: PagerState) {
-    val transition = updateTransition(pagerState.currentPage, label = "")
-    val indicatorStart by transition.animateDp(
-        transitionSpec = {
-            if (initialState < targetState) {
-                spring(dampingRatio = 1f, stiffness = 50f)
-            } else {
-                spring(dampingRatio = 1f, stiffness = 1000f)
-            }
-        }, label = ""
-    ) {
-        tabPositions[it].left
-    }
-
-    val indicatorEnd by transition.animateDp(
-        transitionSpec = {
-            if (initialState < targetState) {
-                spring(dampingRatio = 1f, stiffness = 1000f)
-            } else {
-                spring(dampingRatio = 1f, stiffness = 50f)
-            }
-        }, label = ""
-    ) {
-        tabPositions[it].right
-    }
-
-    Box(
-        Modifier
-            .offset(x = indicatorStart)
-            .wrapContentSize(align = Alignment.BottomStart)
-            .width(indicatorEnd - indicatorStart)
-            .padding(2.dp)
-            .fillMaxSize()
-            .border(BorderStroke(2.dp, Color.Black), RoundedCornerShape(50))
-            .zIndex(1f)
-    )
-}
-
 @Composable
 fun getPagerHeaderByPosition(position: Int): String = when (position) {
     0 -> "Now playing"

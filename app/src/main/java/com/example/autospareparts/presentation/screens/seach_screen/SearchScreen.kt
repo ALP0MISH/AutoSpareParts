@@ -3,6 +3,7 @@ package com.example.autospareparts.presentation.screens.seach_screen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,9 +29,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,8 +40,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.autospareparts.R
 import com.example.autospareparts.presentation.screens.watch_list_screen.component.WatchListIncludeItem
 import com.example.autospareparts.presentation.theme.Background
@@ -53,9 +50,10 @@ import com.example.autospareparts.presentation.theme.Background
 fun SearchScreen(
     onValueChange: (String) -> Unit,
     uiState: SearchUiState,
+    navigateToBack: () -> Unit,
+    navigateToDetailsScreen: (Int) -> Unit,
     modifier: Modifier = Modifier,
-
-    ) {
+) {
     val fullScreenModifier = Modifier
         .background(Background)
         .fillMaxSize()
@@ -69,13 +67,10 @@ fun SearchScreen(
                 .padding(top = 10.dp)
                 .padding(horizontal = 24.dp)
         ) {
-            val navController: NavHostController = rememberNavController()
-            val isBackButtonVisible by remember {
-                derivedStateOf { navController.previousBackStackEntry != null }
-            }
+
             IconButton(
                 modifier = modifier.size(24.dp),
-                onClick = { isBackButtonVisible }
+                onClick = { navigateToBack() }
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowLeft,
@@ -125,6 +120,7 @@ fun SearchScreen(
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
+                textColor = Color.White,
                 focusedIndicatorColor = colorResource(id = R.color.search_background),
                 unfocusedIndicatorColor = colorResource(id = R.color.search_background),
                 cursorColor = colorResource(id = R.color.search_background),
@@ -132,17 +128,36 @@ fun SearchScreen(
             )
         )
 
-        if (uiState.movies.isEmpty()){
-            IsVisiblyItem()
-        }else {
-            LazyColumn {
+        when {
+            uiState.movies.isEmpty() -> IsVisiblyItem()
+            uiState.isLoading -> LoadingScreen()
+            else -> LazyColumn {
                 items(
                     items = uiState.movies
                 ) { movie ->
-                    WatchListIncludeItem(watchMovie = movie)
+                    WatchListIncludeItem(
+                        navigateToDetailsScreen = navigateToDetailsScreen,
+                        posterUrl = movie.posterPath.toString(),
+                        movieId = movie.id,
+                        title = movie.title,
+                        voteAverage = movie.voteAverage.toString(),
+                        releaseDate = movie.releaseDate
+                    )
                 }
             }
         }
+    }
+}
+
+@Composable
+fun LoadingScreen() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Background),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }
 
@@ -151,6 +166,7 @@ fun IsVisiblyItem(
     modifier: Modifier = Modifier
 ) {
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(144.dp))
@@ -161,14 +177,18 @@ fun IsVisiblyItem(
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.we_are_sorry_we_can_not_find_the_movie),
-            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp,
-                fontWeight = FontWeight.Bold, color = Color.White), textAlign = TextAlign.Center
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold, color = Color.White
+            ), textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = stringResource(id = R.string.find_your_movie_by_type_title_categories_years_etc),
-            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp,
-                color = colorResource(id = R.color.light_grey))
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontSize = 12.sp,
+                color = colorResource(id = R.color.light_grey)
+            )
         )
     }
 }

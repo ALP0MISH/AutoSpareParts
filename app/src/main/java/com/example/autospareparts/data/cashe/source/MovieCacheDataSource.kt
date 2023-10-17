@@ -8,7 +8,7 @@ interface MovieCacheDataSource {
 
     suspend fun deleteMovieById(movieId: Int)
 
-    suspend fun fetchSavedMovies(): List<MovieDetailCache>
+    fun fetchSavedMovies(): Flow<List<MovieDetailCache>>
 
      fun isMovieSavedFloe(movieId: Int): Flow<Boolean>
 }

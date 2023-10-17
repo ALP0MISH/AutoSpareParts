@@ -1,5 +1,5 @@
-
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
@@ -9,7 +9,6 @@ sealed class BottomNavigationBarDestinations(
     val route: String,
     val title: String,
     val icon: ImageVector,
-
     ) {
     object Main : BottomNavigationBarDestinations(
         route = "main",
@@ -26,6 +25,6 @@ sealed class BottomNavigationBarDestinations(
     object WatchList : BottomNavigationBarDestinations(
         route = "watch_list",
         title = "Watch List",
-        icon = Icons.Default.Star
+        icon = Icons.Filled.Bookmark
     )
 }

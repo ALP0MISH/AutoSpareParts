@@ -7,6 +7,7 @@ data class MovieUi(
     val voteAverage: Double,
     val title: String,
     val releaseDate: String,
+    val runtime: Int
 
     ){
     fun isUnknown() = this == unknown
@@ -18,8 +19,8 @@ data class MovieUi(
             posterPath = "error",
             voteAverage = 0.0,
             title = "",
-            releaseDate = ""
-
+            releaseDate = "",
+            runtime = 0
         )
     }
 

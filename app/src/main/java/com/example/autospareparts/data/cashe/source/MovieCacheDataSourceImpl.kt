@@ -15,7 +15,7 @@ class MovieCacheDataSourceImpl(
         movieDao.deleteMovieById(movieId)
     }
 
-    override suspend fun fetchSavedMovies(): List<MovieDetailCache> {
+    override fun fetchSavedMovies(): Flow<List<MovieDetailCache>> {
        return movieDao.fetchSavedMovies()
     }
 

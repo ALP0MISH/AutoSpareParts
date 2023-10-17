@@ -8,15 +8,15 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
-        @Insert
-       suspend fun addNewMovie(movie: MovieDetailCache)
+    @Insert
+    suspend fun addNewMovie(movie: MovieDetailCache)
 
-        @Query("DELETE  FROM movie_table WHERE id = :movieId")
-       suspend fun deleteMovieById(movieId: Int)
+    @Query("DELETE  FROM movie_table WHERE id = :movieId")
+    suspend fun deleteMovieById(movieId: Int)
 
-        @Query("SELECT * FROM movie_table")
-       suspend fun fetchSavedMovies():List<MovieDetailCache>
+    @Query("SELECT * FROM movie_table")
+    fun fetchSavedMovies(): Flow<List<MovieDetailCache>>
 
-       @Query("SELECT EXISTS(SELECT 1 FROM movie_table WHERE id = :movieId)")
-       fun isMovieSave(movieId: Int): Flow<Boolean>
+    @Query("SELECT EXISTS(SELECT 1 FROM movie_table WHERE id = :movieId)")
+    fun isMovieSave(movieId: Int): Flow<Boolean>
 }

@@ -61,6 +61,7 @@ dependencies {
     //additional Icons
     implementation ("androidx.compose.material:material-icons-extended:1.4.3")
 
+
     implementation ("com.google.accompanist:accompanist-pager:0.27.1")
 
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.27.1")

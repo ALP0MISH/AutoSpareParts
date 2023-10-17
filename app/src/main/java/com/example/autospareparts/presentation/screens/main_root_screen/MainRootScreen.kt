@@ -1,7 +1,6 @@
 package com.example.autospareparts.presentation.screens.main_root_screen
 
-import android.annotation.SuppressLint
-import android.util.Log
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -10,7 +9,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.autospareparts.presentation.destinations.BottomBar
 import com.example.autospareparts.presentation.destinations.BottomNavGraph
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainRootScreen(
@@ -23,7 +21,10 @@ fun MainRootScreen(
         bottomBar = {
             BottomBar(navController)
         }
-    ) {
-        BottomNavGraph(navController = navController)
+    ) { innerPaddings ->
+        BottomNavGraph(
+            modifier = Modifier.padding(innerPaddings),
+            navController = navController,
+        )
     }
 }

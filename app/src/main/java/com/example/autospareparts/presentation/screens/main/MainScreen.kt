@@ -143,7 +143,6 @@ private fun LoadedMainScreen(
     }
 }
 
-
 @Composable
 fun ErrorMainScreen(
     errorMessage: String,

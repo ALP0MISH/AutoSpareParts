@@ -54,6 +54,7 @@ import kotlinx.coroutines.flow.StateFlow
 fun DetailsScreen(
     fetchMovies: () -> Unit,
     addOrDelete: () -> Unit,
+    navigateToBack: () -> Unit,
     uiStateFlow: StateFlow<DetailScreenUiState>,
 ) {
     val fullScreenModifier = Modifier
@@ -69,7 +70,8 @@ fun DetailsScreen(
             LoadedScreen(
                 modifier = fullScreenModifier, uiState = uiState,
                 addOrDelete = addOrDelete,
-                isSaved = uiState.isSaved
+                isSaved = uiState.isSaved,
+                navigateToBack = navigateToBack
             )
         }
 
@@ -125,6 +127,7 @@ fun ErrorScreen(
 fun LoadedScreen(
     addOrDelete: () -> Unit,
     isSaved: Boolean,
+    navigateToBack: () -> Unit,
     uiState: DetailScreenUiState.Loaded,
     modifier: Modifier = Modifier,
 ) {
@@ -139,7 +142,7 @@ fun LoadedScreen(
         ) {
             IconButton(
                 modifier = Modifier.size(24.dp),
-                onClick = {}
+                onClick = {navigateToBack()}
             ) {
                 Icon(
                     Icons.Default.ArrowBack, contentDescription = null,
@@ -162,7 +165,7 @@ fun LoadedScreen(
                     painter = painterResource(id = if (isSaved) R.drawable.movie_save_icon else R.drawable.not_saved_icon),
                     contentDescription = null,
                     tint = if (isSystemInDarkTheme()) Color.White
-                    else Color.Black
+                    else Color.White
                 )
             }
         }

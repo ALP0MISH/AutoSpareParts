@@ -31,11 +31,11 @@ fun MovieDetailDomain.toCache(): MovieDetailCache =
     }
 
 
-fun MovieDetailCache.toUi(): MovieDetailDomain =
-this.run {
+fun MovieDetailCache.toDomain(): MovieDetailDomain =
+    this.run {
         MovieDetailDomain(
             adult = adult,
-            backdropPath = POSTER_PATH_URL + backdropPath,
+            backdropPath = backdropPath,
             budget = budget,
             homepage = homepage,
             id = id,
@@ -43,7 +43,7 @@ this.run {
             originalTitle = originalTitle,
             overview = overview,
             popularity = popularity,
-            posterPath = POSTER_PATH_URL + posterPath,
+            posterPath = posterPath,
             releaseDate = releaseDate,
             runtime = runtime,
             voteAverage = voteAverage,
@@ -52,7 +52,7 @@ this.run {
         )
     }
 
-fun DetailResult.toUi(): MovieDetailDomain =
+fun DetailResult.toDomain(): MovieDetailDomain =
     this.run {
         MovieDetailDomain(
             adult = adult,
@@ -73,27 +73,29 @@ fun DetailResult.toUi(): MovieDetailDomain =
         )
     }
 
-fun List<MovieDomain>.toUi(): List<MovieUi> {
-    return this.map {movieDomain ->
+fun List<MovieDomain>.toDomain(): List<MovieUi> {
+    return this.map { movieDomain ->
         MovieUi(
-            backdropPath = POSTER_PATH_URL + movieDomain.backdropPath,
+            backdropPath = POSTER_PATH_URL + movieDomain.backdropPath ?: "",
             id = movieDomain.id,
-            posterPath = POSTER_PATH_URL + movieDomain.posterPath,
+            posterPath = POSTER_PATH_URL + movieDomain.posterPath ?: "",
             releaseDate = movieDomain.releaseDate,
             voteAverage = movieDomain.voteAverage,
             title = movieDomain.title,
+            runtime = movieDomain.runtime
         )
     }
 }
 
-fun MovieResult.toUi(): MovieDomain =
+fun MovieResult.toDomain(): MovieDomain =
     this.run {
         MovieDomain(
-            backdropPath = POSTER_PATH_URL + backdropPath,
+            backdropPath = POSTER_PATH_URL + backdropPath ?: "",
             id = id,
-            posterPath = POSTER_PATH_URL + posterPath,
+            posterPath = POSTER_PATH_URL + posterPath ?: "",
             releaseDate = releaseDate,
             voteAverage = voteAverage,
-            title = title
+            title = title,
+            runtime = runtime,
         )
     }

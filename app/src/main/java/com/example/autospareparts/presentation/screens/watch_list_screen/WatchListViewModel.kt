@@ -2,42 +2,32 @@ package com.example.autospareparts.presentation.screens.watch_list_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.autospareparts.domain.use_case.SearchMoviesByQueryUseCase
-import com.example.autospareparts.presentation.screens.details_screen.DetailScreenUiState
+import com.example.autospareparts.domain.models.MovieDetailDomain
+import com.example.autospareparts.domain.use_case.FetchAllSavedMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class WatchListUIState(
+    val movies: List<MovieDetailDomain> = emptyList()
+)
 
 @HiltViewModel
 class WatchListViewModel @Inject constructor(
-    private val searchMoviesByQueryUseCase: SearchMoviesByQueryUseCase,
+    private val fetchAllSavedMoviesUseCase: FetchAllSavedMoviesUseCase
+) : ViewModel() {
 
-    ) : ViewModel() {
-
-    private val _uiStateFlow = MutableStateFlow<WatchListUIState>(WatchListUIState.Loading)
+    private val _uiStateFlow = MutableStateFlow(WatchListUIState())
     val uiStateFlow: StateFlow<WatchListUIState> = _uiStateFlow.asStateFlow()
 
-
-    fun searchMovieById(query: String) {
-        val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
-            _uiStateFlow.tryEmit(WatchListUIState.Error(throwable.localizedMessage ?: ""))
-        }
-        viewModelScope.launch(handler + Dispatchers.IO) {
-            _uiStateFlow.tryEmit(WatchListUIState.Loading)
-            val watchListDetail = searchMoviesByQueryUseCase.fetchSearchMovie(query)
-
-            if (watchListDetail == null) {
-                _uiStateFlow.tryEmit(WatchListUIState.Error("Something is wrong"))
-            } else {
-                _uiStateFlow.tryEmit(WatchListUIState.Loaded(watchListDetail))
-            }
-        }
+    fun fetchAllSavedMovies() {
+        fetchAllSavedMoviesUseCase()
+            .onEach { movies ->
+                _uiStateFlow.tryEmit(WatchListUIState(movies = movies))
+            }.launchIn(viewModelScope)
     }
 }

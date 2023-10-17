@@ -1,5 +1,7 @@
 package com.example.autospareparts.di
 
+import com.example.autospareparts.domain.use_case.FetchAllSavedMoviesUseCase
+import com.example.autospareparts.domain.use_case.FetchAllSavedMoviesUseCaseImpl
 import com.example.autospareparts.domain.use_case.FetchMovieByIdUseCase
 import com.example.autospareparts.domain.use_case.FetchMovieByIdUseCaseImpl
 import com.example.autospareparts.domain.use_case.FetchMoviesInteractor
@@ -43,6 +45,11 @@ interface UseCaseModule {
     fun bindMovieOperatorUseCase(
         implement: MovieOperatorUseCaseImpl
     ): MovieOperatorUseCase
+
+    @Binds
+    fun bindFetchAllSavedMoviesUseCase(
+        implement: FetchAllSavedMoviesUseCaseImpl
+    ): FetchAllSavedMoviesUseCase
 
 
 

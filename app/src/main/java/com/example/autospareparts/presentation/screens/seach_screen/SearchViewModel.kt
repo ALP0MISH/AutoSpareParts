@@ -3,7 +3,7 @@ package com.example.autospareparts.presentation.screens.seach_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.autospareparts.domain.use_case.SearchMoviesByQueryUseCase
-import com.example.autospareparts.presentation.mappers.toUi
+import com.example.autospareparts.presentation.mappers.toDomain
 import com.example.autospareparts.presentation.models.MovieUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,8 @@ import javax.inject.Inject
 
 data class SearchUiState(
     val query: String = "",
-    val movies: List<MovieUi> = emptyList()
+    val movies: List<MovieUi> = emptyList(),
+    val isLoading: Boolean = false
 )
 
 @HiltViewModel
@@ -32,7 +33,12 @@ class SearchViewModel @Inject constructor(
     init {
         searchQueryFlow
             .onEach { query ->
-                _uiStateFlow.tryEmit(_uiStateFlow.value.copy(query = query))
+                _uiStateFlow.tryEmit(
+                    _uiStateFlow.value.copy(
+                        query = query,
+                        isLoading = true
+                    )
+                )
             }
             .debounce(300)
             .onEach(::startSearch)
@@ -42,7 +48,12 @@ class SearchViewModel @Inject constructor(
     private fun startSearch(query: String) {
         viewModelScope.launch {
             val movies = searchMoviesByQueryUseCase.fetchSearchMovie(query)
-            _uiStateFlow.tryEmit(_uiStateFlow.value.copy(movies = movies.toUi()))
+            _uiStateFlow.tryEmit(
+                _uiStateFlow.value.copy(
+                    movies = movies.toDomain(),
+                    isLoading = false
+                )
+            )
         }
     }
 
