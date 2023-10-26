@@ -5,7 +5,7 @@ of the movie and the Description and actors
 
 ## ScreenShots
 
-[<img src="meta/screenshots/Screenshot_first.png" width=160>](meta/screenshots/screenshot_first.png)
+[<img src="meta/screenshots/screenshot_first.png" width=160>](meta/screenshots/screenshot_first.png)
 [<img src="meta/screenshots/screenshot_second.png" width=160>](meta/screenshots/screenshot_second.png)
 [<img src="meta/screenshots/screenshot_third.png" width=160>](meta/screenshots/screenshot_third.png)
 [<img src="meta/screenshots/screenshot_fourth.png" width=160>](meta/screenshots/screenshot_fourth.png)
