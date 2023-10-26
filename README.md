@@ -7,10 +7,10 @@ of the movie and the Description and actors
 
 [<img src="meta/screenshots/Screenshot_first.png" width=160>](meta/screenshots/screenshot_first.png)
 [<img src="meta/screenshots/screenshot_second.png" width=160>](meta/screenshots/screenshot_second.png)
-[<img src="meta/screenshots/screenshot_third" width=160>](meta/screenshots/screenshot_third.png)
-[<img src="meta/screenshots/screenshot_fourth" width=160>](meta/screenshots/screenshot_fourth.png)
+[<img src="meta/screenshots/screenshot_third.png" width=160>](meta/screenshots/screenshot_third.png)
+[<img src="meta/screenshots/screenshot_fourth.png" width=160>](meta/screenshots/screenshot_fourth.png)
 [<img src="meta/screenshots/screenshot_fifth.png" width=160>](meta/screenshots/screenshot_fifth.png)
-[<img src="meta/screenshots/screenshot_sixth" width=160>](meta/screenshots/screenshot_sixth.png)
+[<img src="meta/screenshots/screenshot_sixth.png" width=160>](meta/screenshots/screenshot_sixth.png)
 [<img src="meta/screenshots/screenshot_seventh.png" width=160>](meta/screenshots/screenshot_seventh.png)
 [<img src="meta/screenshots/screenshot_eighth.png" width=160>](meta/screenshots/screenshot_eighth.png)
 [<img src="meta/screenshots/screenshot_ninth.png" width=160>](meta/screenshots/screenshot_ninth.png)
