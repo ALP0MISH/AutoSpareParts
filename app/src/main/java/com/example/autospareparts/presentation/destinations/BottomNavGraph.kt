@@ -76,9 +76,10 @@ fun BottomNavGraph(
 
             DetailsScreen(
                 uiStateFlow = detailViewModel.uiStateFlow,
-                fetchMovies = { detailViewModel.fetchMovieByID(movieId) },
+                fetchMovies = { detailViewModel.init(movieId) },
                 addOrDelete = { detailViewModel.addOrDeleteMovie(movieId) },
-                navigateToBack = { navController.navigateUp() }
+                navigateToBack = { navController.navigateUp() },
+                onFilterClick = detailViewModel::onFilterClick
             )
         }
     }

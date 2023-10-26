@@ -82,8 +82,8 @@ fun PosterPathInclude(
         model = movies.posterPath,
         contentDescription = null,
         modifier = Modifier
-            .padding(horizontal = 8.dp)
             .fillMaxWidth()
+            .padding(horizontal = 8.dp)
             .clip(RoundedCornerShape(16.dp))
             .clickable { navigateToDetailsScreen(movies.id) },
         contentScale = ContentScale.Crop

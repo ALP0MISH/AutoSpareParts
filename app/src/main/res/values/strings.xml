@@ -10,4 +10,13 @@
     <string name="detail">Detail</string>
     <string name="retry">Retry</string>
     <string name="spiderman_no_way_home">Spiderman No Way\nHome</string>
+    <string name="about_movie">About Movie</string>
+    <string name="reviews">Reviews</string>
+    <string name="casts">Cast</string>
+    <string name="crews">Crews</string>
+    <string name="by_reting">By rating</string>
+    <string name="descending_order">Descending order</string>
+    <string name="new_ones_first">New ones first\n</string>
+    <string name="first_the_old_ones">First the old ones\n</string>
+    <string name="filter">Filter</string>
 </resources>

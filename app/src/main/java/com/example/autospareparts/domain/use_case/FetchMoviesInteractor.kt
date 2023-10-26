@@ -8,6 +8,4 @@ import com.example.autospareparts.domain.models.MovieDomain
     suspend fun fetchTopRatedMovie(): List<MovieDomain>
     suspend fun fetchUpcomingMovie(): List<MovieDomain>
     suspend fun fetchNowPlayingMovie(): List<MovieDomain>
-    
 }
-

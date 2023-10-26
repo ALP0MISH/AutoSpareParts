@@ -4,6 +4,10 @@ import com.example.autospareparts.domain.use_case.FetchAllSavedMoviesUseCase
 import com.example.autospareparts.domain.use_case.FetchAllSavedMoviesUseCaseImpl
 import com.example.autospareparts.domain.use_case.FetchMovieByIdUseCase
 import com.example.autospareparts.domain.use_case.FetchMovieByIdUseCaseImpl
+import com.example.autospareparts.domain.use_case.FetchMoviePeoplesUseCase
+import com.example.autospareparts.domain.use_case.FetchMoviePeoplesUseCaseImpl
+import com.example.autospareparts.domain.use_case.FetchMovieReviewsUseCase
+import com.example.autospareparts.domain.use_case.FetchMovieReviewsUseCaseImpl
 import com.example.autospareparts.domain.use_case.FetchMoviesInteractor
 import com.example.autospareparts.domain.use_case.FetchMoviesInteractorImpl
 import com.example.autospareparts.domain.use_case.IsMovieSavedUseCaseIMpl
@@ -24,7 +28,6 @@ interface UseCaseModule {
     fun bindFetchMoviesInteractor(
         implement: FetchMoviesInteractorImpl
     ): FetchMoviesInteractor
-
 
     @Binds
     fun bindSearchMoviesByQueryUseCase(
@@ -51,6 +54,13 @@ interface UseCaseModule {
         implement: FetchAllSavedMoviesUseCaseImpl
     ): FetchAllSavedMoviesUseCase
 
+    @Binds
+    fun bindFetchMoviePeoplesUseCase(
+        implement: FetchMoviePeoplesUseCaseImpl
+    ): FetchMoviePeoplesUseCase
 
-
+    @Binds
+    fun bindFetchMovieReviewsUseCase(
+        implement: FetchMovieReviewsUseCaseImpl
+    ): FetchMovieReviewsUseCase
 }

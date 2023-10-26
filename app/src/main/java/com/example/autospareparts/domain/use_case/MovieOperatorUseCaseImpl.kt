@@ -14,5 +14,4 @@ class MovieOperatorUseCaseImpl  @Inject constructor(
     override suspend fun deleteMovieById(movie: Int) {
         repository.deleteMovieById(movie)
     }
-
 }

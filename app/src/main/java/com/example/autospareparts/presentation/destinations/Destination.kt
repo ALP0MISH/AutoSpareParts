@@ -20,5 +20,4 @@ object  DetailsScreenDestination : Destination {
     override val route: String = "detail_screen"
     val routeWithArgs = "$route/{$movieId}"
     val arguments = listOf(navArgument(movieId) { type = NavType.IntType })
-
 }

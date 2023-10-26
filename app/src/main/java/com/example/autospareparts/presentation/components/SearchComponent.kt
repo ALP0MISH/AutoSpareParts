@@ -63,6 +63,7 @@ fun SearchTextField(
             ) {
                 Text(
                     modifier = Modifier
+                        .padding(top = 4.dp)
                         .wrapContentHeight(align = Alignment.CenterVertically),
                     text = stringResource(id = R.string.start_search),
                     color = Color.White,

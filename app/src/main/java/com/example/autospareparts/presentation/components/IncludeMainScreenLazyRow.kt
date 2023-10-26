@@ -3,29 +3,25 @@
 package com.example.autospareparts.presentation.components
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.border
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import com.example.autospareparts.presentation.screens.main.MainUIState
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -36,10 +32,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun IncludeMainBottom(
     uiState: MainUIState.Loaded,
+    scrollState: ScrollState,
     navigateToDetailsScreen: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     val moviesList = listOf(
         uiState.nowPlayingMovies,
         uiState.upComingMovies,
@@ -50,8 +46,7 @@ fun IncludeMainBottom(
     val coroutineScope = rememberCoroutineScope()
 
     val defaultIndicator = @Composable { tabPositions: List<TabPosition> ->
-        TabRowDefaults.Indicator(Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
-        )
+        TabRowDefaults.Indicator(Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),)
     }
     ScrollableTabRow(
         selectedTabIndex = pagerState.currentPage,
@@ -82,12 +77,27 @@ fun IncludeMainBottom(
         modifier = Modifier
             .fillMaxWidth()
             .padding(12.dp)
+            .nestedScroll(remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(
+                available: Offset,
+                source: NestedScrollSource
+            ): Offset {
+                return if (available.y > 0) Offset.Zero else Offset(
+                    x = 0f,
+                    y = -scrollState.dispatchRawDelta(-available.y)
+                )
+            }
+        }
+    })
     ) { position ->
         val currentMovies = moviesList[position]
         LazyVerticalGrid(
+            modifier = modifier.fillMaxWidth(),
             columns = GridCells.Fixed(count = 3),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            userScrollEnabled = false
+            userScrollEnabled = false,
+            contentPadding = PaddingValues(bottom = 40.dp)
         ) {
             items(items = currentMovies) { movieDomain ->
                 PosterPathInclude(

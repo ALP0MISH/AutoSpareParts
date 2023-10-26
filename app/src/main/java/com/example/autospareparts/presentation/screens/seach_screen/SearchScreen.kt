@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.sp
 import com.example.autospareparts.R
 import com.example.autospareparts.presentation.screens.watch_list_screen.component.WatchListIncludeItem
 import com.example.autospareparts.presentation.theme.Background
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,7 +64,7 @@ fun SearchScreen(
         Row(
             modifier = modifier
                 .padding(top = 10.dp)
-                .padding(horizontal = 24.dp)
+                .padding(horizontal = 24.dp),
         ) {
 
             IconButton(
@@ -105,18 +104,24 @@ fun SearchScreen(
                 .clip(CircleShape),
             value = uiState.query,
             onValueChange = onValueChange,
-            textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 20.sp),
+            textStyle = MaterialTheme.typography.bodyMedium.copy(
+                fontSize = 20.sp,
+                color = Color.White,
+            ),
             shape = RoundedCornerShape(16.dp),
             trailingIcon = {
                 Icon(
                     imageVector = Icons.Filled.Search,
-                    contentDescription = null, tint = Color.White
+                    contentDescription = null,
+                    tint = Color.White
                 )
             },
             placeholder = {
                 Text(
+                    modifier = modifier.padding(top = 4.dp),
                     text = stringResource(id = R.string.start_search),
-                    style = MaterialTheme.typography.bodyMedium.copy(color = Color.White)
+                    style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+                    textAlign = TextAlign.Center
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
@@ -127,7 +132,6 @@ fun SearchScreen(
                 containerColor = colorResource(id = R.color.search_background)
             )
         )
-
         when {
             uiState.movies.isEmpty() -> IsVisiblyItem()
             uiState.isLoading -> LoadingScreen()
@@ -192,7 +196,3 @@ fun IsVisiblyItem(
         )
     }
 }
-
-
-
-

@@ -2,10 +2,19 @@ package com.example.autospareparts.presentation.mappers
 
 import com.example.autospareparts.data.cashe.models.MovieDetailCache
 import com.example.autospareparts.data.cloude.models.all_movies_remote.MovieResult
+import com.example.autospareparts.data.cloude.models.credits_remote.ActorsResponse
+import com.example.autospareparts.data.cloude.models.credits_remote.PoepleCloude
 import com.example.autospareparts.data.cloude.models.detail_remote.DetailResult
+import com.example.autospareparts.data.cloude.models.reviews_remote.ReviewsCloud
+import com.example.autospareparts.domain.models.ActorsDomain
 import com.example.autospareparts.domain.models.MovieDetailDomain
 import com.example.autospareparts.domain.models.MovieDomain
+import com.example.autospareparts.domain.models.PeopleDomain
+import com.example.autospareparts.domain.models.ReviewsDetailDomain
+import com.example.autospareparts.domain.models.ReviewsDomain
 import com.example.autospareparts.presentation.models.MovieUi
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 const val POSTER_PATH_URL = "https://image.tmdb.org/t/p/w342"
 
@@ -29,7 +38,6 @@ fun MovieDetailDomain.toCache(): MovieDetailCache =
             movieGenresName = movieGenresName,
         )
     }
-
 
 fun MovieDetailCache.toDomain(): MovieDetailDomain =
     this.run {
@@ -99,3 +107,37 @@ fun MovieResult.toDomain(): MovieDomain =
             runtime = runtime,
         )
     }
+
+fun PoepleCloude.toDomain() = this.run {
+    PeopleDomain(
+        cast_id = cast_id,
+        credit_id = credit_id,
+        id = id,
+        name = name,
+        original_name = original_name,
+        popularity = popularity,
+        profile_path =  POSTER_PATH_URL + profile_path
+    )
+}
+
+fun ActorsResponse.toDomain() = this.run {
+    ActorsDomain(
+        id = id,
+        poepleCloude = poepleCloude.map { it.toDomain() },
+        crewCloud = crewCloud.map { it.toDomain() }
+    )
+}
+
+fun ReviewsCloud.toDomain(): ReviewsDomain = this.run {
+    ReviewsDomain(author = author,
+        id = id,
+        content = content,
+        reviewsDetails = ReviewsDetailDomain(
+            avatar_path = POSTER_PATH_URL + reviewsDetailCloud.avatar_path,
+            name = reviewsDetailCloud.name,
+            username = reviewsDetailCloud.username,
+            rating = reviewsDetailCloud.rating,
+        ),
+        created_at = ZonedDateTime.parse(created_at).toLocalDateTime()
+    )
+}

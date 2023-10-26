@@ -20,7 +20,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.autospareparts.presentation.theme.Background
 import com.example.autospareparts.presentation.theme.LightBlue
-
 @Preview
 @Composable
 fun BottomBarPreview() {

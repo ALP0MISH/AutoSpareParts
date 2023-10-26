@@ -9,10 +9,10 @@ data class MovieUi(
     val releaseDate: String,
     val runtime: Int
 
-    ){
+) {
     fun isUnknown() = this == unknown
 
-    companion object{
+    companion object {
         val unknown = MovieUi(
             backdropPath = "error",
             id = -1,
@@ -23,5 +23,4 @@ data class MovieUi(
             runtime = 0
         )
     }
-
 }

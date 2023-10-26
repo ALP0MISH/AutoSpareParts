@@ -23,5 +23,4 @@ class DataSourceModule {
     fun provideMovieCloudDataSource(
         movieService: MovieService
     ): MovieCloudDataSource = MovieCloudDataSourceImpl(movieService)
-
 }

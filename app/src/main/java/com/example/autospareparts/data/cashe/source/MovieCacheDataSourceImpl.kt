@@ -10,15 +10,12 @@ class MovieCacheDataSourceImpl(
     override suspend fun addNewMovie(movie: MovieDetailCache) {
         movieDao.addNewMovie(movie)
     }
-
     override suspend fun deleteMovieById(movieId: Int) {
         movieDao.deleteMovieById(movieId)
     }
-
     override fun fetchSavedMovies(): Flow<List<MovieDetailCache>> {
        return movieDao.fetchSavedMovies()
     }
-
      override fun isMovieSavedFloe(movieId: Int): Flow<Boolean> {
         return movieDao.isMovieSave(movieId)
     }

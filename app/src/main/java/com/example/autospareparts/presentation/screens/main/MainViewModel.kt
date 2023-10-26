@@ -21,8 +21,6 @@ class MainViewModel @Inject constructor(
 
     private val _uiStateFlow = MutableStateFlow<MainUIState>(MainUIState.Loading)
     val uiStateFlow: StateFlow<MainUIState> = _uiStateFlow.asStateFlow()
-
-
     init {
         fetchAllMovies()
     }

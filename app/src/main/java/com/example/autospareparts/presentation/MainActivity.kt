@@ -26,12 +26,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AutoSparePartsTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                   // DetailTabBar()
                     MovieNavApp()
                 }
             }

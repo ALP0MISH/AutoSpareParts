@@ -33,8 +33,6 @@ import com.example.autospareparts.presentation.components.IncludeMainBottom
 import com.example.autospareparts.presentation.components.SearchTextField
 import com.example.autospareparts.presentation.theme.Background
 import kotlinx.coroutines.flow.StateFlow
-
-
 @Composable
 fun MainScreen(
     navigateToSearchScreen: () -> Unit,
@@ -136,7 +134,8 @@ private fun LoadedMainScreen(
             ) {
                 IncludeMainBottom(
                     uiState = uiState,
-                    navigateToDetailsScreen = navigateToDetailsScreen
+                    navigateToDetailsScreen = navigateToDetailsScreen,
+                    scrollState = scrollState
                 )
             }
         }
@@ -163,7 +162,6 @@ fun ErrorMainScreen(
                 text = stringResource(id = R.string.retry),
                 style = MaterialTheme.typography.titleLarge
             )
-
         }
     }
 }

@@ -22,5 +22,4 @@ class FetchMoviesInteractorImpl @Inject constructor(
     override suspend fun fetchNowPlayingMovie(): List<MovieDomain> {
         return movieRepository.fetchNowPlayingMovie()
     }
-
 }
