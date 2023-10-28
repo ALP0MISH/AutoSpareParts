@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.autospareparts"
+    namespace = "com.example.moviesapp"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.autospareparts"
+        applicationId = "com.example.moviesapp"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
